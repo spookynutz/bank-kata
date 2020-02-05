@@ -39,6 +39,19 @@ public class BankAccountShould {
         assertThat(statementPrinter.printedStatements).isEmpty();
     }
 
+    @Test
+    public void allow_client_to_make_a_deposit_of_another_amount(){
+        BigDecimal amountToDeposit = BigDecimal.valueOf(50);
+
+        bankAccount.deposit(amountToDeposit);
+        bankAccount.printStatement();
+        assertThat(statementPrinter.printedStatements).containsExactly(
+                "OPERATION | DATE | AMOUNT | BALANCE",
+                "DEPOSIT | 29/01/2020 | 50.00 | 50.00"
+        );
+    }
+
+
     class TestableStatementPrinter extends ConsoleStatementPrinter {
 
         private List<String> printedStatements = new ArrayList<>();
