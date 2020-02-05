@@ -1,6 +1,7 @@
 package com.kata.bank.account;
 
 import com.kata.bank.statement.ConsoleStatementPrinter;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -11,16 +12,21 @@ import static org.assertj.core.api.Assertions.*;
 
 public class BankAccountShould {
 
+    private TestableStatementPrinter statementPrinter;
+    private BankAccount bankAccount;
+
+    @Before
+    public void setUp() throws Exception {
+        statementPrinter = new TestableStatementPrinter();
+        bankAccount = new BankAccount(statementPrinter);
+    }
+
     @Test
     public void allow_client_to_make_a_deposit(){
         BigDecimal amountToDeposit = BigDecimal.valueOf(20);
 
-        TestableStatementPrinter statementPrinter = new TestableStatementPrinter();
-
-        BankAccount bankAccount = new BankAccount(statementPrinter);
         bankAccount.deposit(amountToDeposit);
         bankAccount.printStatement();
-
         assertThat(statementPrinter.printedStatements).containsExactly(
                 "OPERATION | DATE | AMOUNT | BALANCE",
                 "DEPOSIT | 29/01/2020 | 20.00 | 20.00"
@@ -29,10 +35,7 @@ public class BankAccountShould {
 
     @Test
     public void display_nothing_when_printing_statement_on_brand_new_account(){
-        TestableStatementPrinter statementPrinter = new TestableStatementPrinter();
-        BankAccount bankAccount = new BankAccount(statementPrinter);
         bankAccount.printStatement();
-
         assertThat(statementPrinter.printedStatements).isEmpty();
     }
 
