@@ -27,6 +27,15 @@ public class BankAccountShould {
         );
     }
 
+    @Test
+    public void display_nothing_when_printing_statement_on_brand_new_account(){
+        TestableStatementPrinter statementPrinter = new TestableStatementPrinter();
+        BankAccount bankAccount = new BankAccount(statementPrinter);
+        bankAccount.printStatement();
+
+        assertThat(statementPrinter.printedStatements).isEmpty();
+    }
+
     class TestableStatementPrinter extends ConsoleStatementPrinter {
 
         private List<String> printedStatements = new ArrayList<>();
