@@ -14,12 +14,12 @@ public class BankAccountShould {
     @Test
     public void allow_client_to_make_a_deposit(){
         BigDecimal amountToDeposit = BigDecimal.valueOf(20);
+        List<String> printedStatements = new ArrayList<>();
 
-        BankAccount bankAccount = new BankAccount();
+        BankAccount bankAccount = new BankAccount(printedStatements);
         bankAccount.deposit(amountToDeposit);
         bankAccount.printStatement();
 
-        List<String> printedStatements = new ArrayList<>();
         assertThat(printedStatements).containsExactly(
                 "OPERATION | DATE | AMOUNT | BALANCE",
                 "DEPOSIT | 29/01/2020 | 20.00 | 20.00"
