@@ -17,7 +17,7 @@ public class BankAccount {
     }
 
     public void deposit(BigDecimal amountToDeposit) {
-        depositHistory.add(new Deposit(amountToDeposit));
+        depositHistory.add(new Deposit(amountToDeposit.setScale(2)));
     }
 
     public void printStatement() {
@@ -25,6 +25,9 @@ public class BankAccount {
             return;
         }
         statementPrinter.print("OPERATION | DATE | AMOUNT | BALANCE");
-        statementPrinter.print("DEPOSIT | 29/01/2020 | 20.00 | 20.00");
+
+        for (Deposit deposit : depositHistory) {
+            statementPrinter.print("DEPOSIT | 29/01/2020 | " + deposit.getAmountToDeposit() + " | " + deposit.getAmountToDeposit());
+        }
     }
 }

@@ -8,4 +8,8 @@ public class Deposit {
     public Deposit(BigDecimal amountToDeposit) {
         this.amountToDeposit = amountToDeposit;
     }
+
+    public BigDecimal getAmountToDeposit() {
+        return amountToDeposit;
+    }
 }
