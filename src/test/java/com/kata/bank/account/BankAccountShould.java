@@ -1,10 +1,14 @@
 package com.kata.bank.account;
 
+import com.kata.bank.LocalSystemClock;
+import com.kata.bank.SystemClock;
 import com.kata.bank.statement.ConsoleStatementPrinter;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +21,13 @@ public class BankAccountShould {
 
     private TestableStatementPrinter statementPrinter;
     private BankAccount bankAccount;
+    private TestableSystemClock systemClock;
 
     @Before
     public void setUp() throws Exception {
         statementPrinter = new TestableStatementPrinter();
-        bankAccount = new BankAccount(statementPrinter);
+        systemClock = new TestableSystemClock();
+        bankAccount = new BankAccount(statementPrinter, systemClock);
     }
 
     @Test
@@ -75,7 +81,7 @@ public class BankAccountShould {
         BigDecimal anotherAmountToDeposit = AMOUNT_50;
 
         bankAccount.deposit(amountToDeposit);
-        new Clock().advanceTimeByOneDay();
+        systemClock.advanceTimeByOneDay();
         bankAccount.deposit(anotherAmountToDeposit);
         bankAccount.printStatement();
         assertThat(statementPrinter.printedStatements).containsExactly(
@@ -96,8 +102,18 @@ public class BankAccountShould {
         }
     }
 
-    private class Clock {
-        public void advanceTimeByOneDay() {
+    private class TestableSystemClock extends LocalSystemClock {
+
+        private LocalDateTime time = LocalDateTime.of(2020, 1, 29, 0, 0);
+
+        public SystemClock advanceTimeByOneDay(){
+            this.time = this.time.plus(1, ChronoUnit.DAYS);
+            return this;
+        }
+
+        @Override
+        public LocalDateTime getTime() {
+            return this.time;
         }
     }
 }
