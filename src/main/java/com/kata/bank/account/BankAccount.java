@@ -3,6 +3,7 @@ package com.kata.bank.account;
 import com.kata.bank.SystemClock;
 import com.kata.bank.operation.Deposit;
 import com.kata.bank.operation.Withdraw;
+import com.kata.bank.statement.StatementLine;
 import com.kata.bank.statement.StatementPrinter;
 
 import java.math.BigDecimal;
@@ -40,7 +41,7 @@ public class BankAccount {
             BigDecimal operationAmount = deposit.getAmountToDeposit();
             LocalDateTime operationDate = deposit.getDepositDate();
             accountBalance = accountBalance.add(operationAmount);
-            printStatement(accountBalance, operationType, operationAmount, operationDate);
+            printStatement(new StatementLine(accountBalance, operationType, operationAmount, operationDate));
         }
 
         for (Withdraw withdraw : withdrawHistory) {
@@ -48,14 +49,14 @@ public class BankAccount {
             BigDecimal operationAmount = withdraw.getAmountToWithdraw();
             LocalDateTime operationDate = withdraw.getWithdrawDate();
             accountBalance = accountBalance.subtract(operationAmount);
-            printStatement(accountBalance, operationType, operationAmount, operationDate);
+            printStatement(new StatementLine(accountBalance, operationType, operationAmount, operationDate));
         }
     }
 
-    private void printStatement(BigDecimal accountBalance, String operationType, BigDecimal operationAmount, LocalDateTime operationDate) {
+    private void printStatement(StatementLine statementLine) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String fieldSeparator = " | ";
-        statementPrinter.print(operationType + fieldSeparator + dtf.format(operationDate) + fieldSeparator + operationAmount + fieldSeparator + accountBalance);
+        statementPrinter.print(statementLine.getOperationType() + fieldSeparator + dtf.format(statementLine.getOperationDate()) + fieldSeparator + statementLine.getOperationAmount() + fieldSeparator + statementLine.getAccountBalance());
     }
 
     public void withdraw(BigDecimal amountToWithdraw) {
