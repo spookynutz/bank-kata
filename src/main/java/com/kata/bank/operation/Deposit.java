@@ -6,7 +6,7 @@ public class Deposit {
     private BigDecimal amountToDeposit;
 
     public Deposit(BigDecimal amountToDeposit) {
-        this.amountToDeposit = amountToDeposit;
+        this.amountToDeposit = amountToDeposit.setScale(2);
     }
 
     public BigDecimal getAmountToDeposit() {
