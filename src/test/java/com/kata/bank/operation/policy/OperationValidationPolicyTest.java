@@ -42,4 +42,11 @@ public class OperationValidationPolicyTest {
         assertThat(isWithdrawAllowed(accountBalance, amountToWithdraw)).isFalse();
     }
 
+    @Test
+    public void allow_withdraw_when_account_balance_equal_to_amount_to_withdraw(){
+        Money accountBalance = AMOUNT_50;
+        Money amountToWithdraw = AMOUNT_50;
+        assertThat(isWithdrawAllowed(accountBalance, amountToWithdraw)).isTrue();
+    }
+
 }
