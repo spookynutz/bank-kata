@@ -32,8 +32,8 @@ public class BankAccountShould {
     public void setUp() throws Exception {
         statementPrinter = new TestableStatementPrinter();
         systemClock = new TestableSystemClock();
-        operationHistory = new OperationHistory();
-        bankAccount = new BankAccount(statementPrinter, systemClock, operationHistory);
+        operationHistory = new OperationHistory(systemClock);
+        bankAccount = new BankAccount(statementPrinter, operationHistory);
     }
 
     @Test

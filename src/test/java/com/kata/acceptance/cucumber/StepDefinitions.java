@@ -5,7 +5,6 @@ import com.kata.bank.SystemClock;
 import com.kata.bank.account.BankAccount;
 import com.kata.bank.operation.OperationHistory;
 import com.kata.bank.statement.ConsoleStatementPrinter;
-import com.kata.bank.statement.StatementLine;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -21,8 +20,8 @@ public class StepDefinitions {
 
     private final TestableSystemClock systemClock = new TestableSystemClock();
     private final TestableStatementPrinter statementPrinter = new TestableStatementPrinter();
-    private final OperationHistory operationHistory = new OperationHistory();
-    private final BankAccount bankAccount = new BankAccount(statementPrinter, systemClock, operationHistory);
+    private final OperationHistory operationHistory = new OperationHistory(systemClock);
+    private final BankAccount bankAccount = new BankAccount(statementPrinter, operationHistory);
 
     @Given("a client makes a deposit of {int} on {int}\\/{int}\\/{int}")
     public void a_client_makes_a_deposit_of_on(Integer operationAmount, Integer day, Integer month, Integer year) {

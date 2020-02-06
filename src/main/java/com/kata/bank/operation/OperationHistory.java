@@ -1,5 +1,6 @@
 package com.kata.bank.operation;
 
+import com.kata.bank.SystemClock;
 import com.kata.bank.statement.Statement;
 import com.kata.bank.statement.StatementLine;
 
@@ -8,10 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OperationHistory {
-    public List<Operation> operationHistory = new ArrayList<Operation>();
+    private List<Operation> operationHistory = new ArrayList<Operation>();
+    private SystemClock systemClock;
 
-    public void add(Operation operation){
-        this.operationHistory.add(operation);
+    public OperationHistory(SystemClock systemClock) {
+        this.systemClock = systemClock;
+    }
+
+    public void add(OperationType operationType, BigDecimal amount) {
+        this.operationHistory.add(new Operation(operationType, amount, systemClock.getTime()));
     }
 
     public Statement getStatement() {
