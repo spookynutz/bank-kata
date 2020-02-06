@@ -34,20 +34,23 @@ public class BankAccount {
         statementPrinter.print("OPERATION | DATE | AMOUNT | BALANCE");
 
         BigDecimal accountBalance = BigDecimal.ZERO.setScale(2);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String fieldSeparator = " | ";
+
         for (Deposit deposit : depositHistory) {
+            String operationType = "DEPOSIT";
             BigDecimal depositAmount = deposit.getAmountToDeposit();
             LocalDateTime depositDate = deposit.getDepositDate();
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             accountBalance = accountBalance.add(depositAmount);
-            statementPrinter.print("DEPOSIT | " + dtf.format(depositDate) + " | " + depositAmount + " | " + accountBalance);
+            statementPrinter.print(operationType + fieldSeparator + dtf.format(depositDate) + fieldSeparator + depositAmount + fieldSeparator + accountBalance);
         }
 
         for (Withdraw withdraw : withdrawHistory) {
+            String operationType = "WITHDRAW";
             BigDecimal withdrawAmount = withdraw.getAmountToWithdraw();
             LocalDateTime withdrawDate = withdraw.getWithdrawDate();
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             accountBalance = accountBalance.subtract(withdrawAmount);
-            statementPrinter.print("WITHDRAW | " + dtf.format(withdrawDate) + " | " + withdrawAmount + " | " + accountBalance);
+            statementPrinter.print(operationType + fieldSeparator + dtf.format(withdrawDate) + fieldSeparator + withdrawAmount + fieldSeparator + accountBalance);
         }
     }
 
