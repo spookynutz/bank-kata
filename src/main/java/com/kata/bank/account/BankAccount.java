@@ -35,22 +35,17 @@ public class BankAccount {
         if (operationHistory.isEmpty()) {
             return;
         }
-        statementPrinter.print("OPERATION | DATE | AMOUNT | BALANCE");
+        statementPrinter.printHeader();
 
         BigDecimal accountBalance = BigDecimal.ZERO.setScale(2);
 
         for (Operation operation : operationHistory) {
-            OperationType operationType = operation.getOperationType();
-            BigDecimal operationAmount = operation.getOperationAmount();
-            LocalDateTime operationDate = operation.getOperationDate();
-            accountBalance = accountBalance.add(operationAmount);
-            printStatement(new StatementLine(accountBalance, operationType, operationAmount, operationDate));
+            accountBalance = accountBalance.add(operation.getOperationAmount());
+            printStatement(new StatementLine(accountBalance, operation.getOperationType(), operation.getOperationAmount(), operation.getOperationDate()));
         }
     }
 
     private void printStatement(StatementLine statementLine) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String fieldSeparator = " | ";
-        statementPrinter.print(statementLine.getOperationType() + fieldSeparator + dtf.format(statementLine.getOperationDate()) + fieldSeparator + statementLine.getOperationAmount().abs() + fieldSeparator + statementLine.getAccountBalance());
+        statementPrinter.print(statementLine);
     }
 }

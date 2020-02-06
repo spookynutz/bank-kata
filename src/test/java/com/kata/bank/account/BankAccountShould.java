@@ -3,6 +3,7 @@ package com.kata.bank.account;
 import com.kata.bank.LocalSystemClock;
 import com.kata.bank.SystemClock;
 import com.kata.bank.statement.ConsoleStatementPrinter;
+import com.kata.bank.statement.StatementLine;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -134,9 +135,9 @@ public class BankAccountShould {
         private List<String> printedStatements = new ArrayList<>();
 
         @Override
-        public void print(String statement) {
-            super.print(statement);
-            printedStatements.add(statement);
+        protected void printLine(String message) {
+            super.printLine(message);
+            printedStatements.add(message);
         }
     }
 
