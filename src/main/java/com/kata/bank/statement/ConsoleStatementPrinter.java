@@ -1,7 +1,6 @@
 package com.kata.bank.statement;
 
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 public class ConsoleStatementPrinter implements StatementPrinter {
 
@@ -11,6 +10,10 @@ public class ConsoleStatementPrinter implements StatementPrinter {
 
     @Override
     public void print(Statement statement) {
+        if (null == statement) {
+            return;
+        }
+
         if (statement.isEmpty()) {
             return;
         }
