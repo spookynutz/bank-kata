@@ -4,8 +4,8 @@ import com.kata.bank.LocalSystemClock;
 import com.kata.bank.Money;
 import com.kata.bank.SystemClock;
 import com.kata.bank.operation.OperationHistory;
+import com.kata.bank.operation.exception.OperationNotAllowedException;
 import com.kata.bank.statement.ConsoleStatementPrinter;
-import com.kata.bank.statement.StatementLine;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -132,6 +132,11 @@ public class BankAccountShould {
                 "DEPOSIT | 29/01/2020 | 40.00 | 70.00",
                 "WITHDRAW | 29/01/2020 | 30.00 | 40.00"
         );
+    }
+
+    @Test(expected = OperationNotAllowedException.class)
+    public void not_be_allowed_to_withdraw_more_than_account_balance(){
+        bankAccount.withdraw(AMOUNT_20);
     }
 
     private class TestableStatementPrinter extends ConsoleStatementPrinter {
