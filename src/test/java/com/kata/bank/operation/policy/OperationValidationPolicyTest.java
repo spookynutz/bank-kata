@@ -34,4 +34,12 @@ public class OperationValidationPolicyTest {
         Money amountToWithdraw = AMOUNT_NULL;
         assertThat(isWithdrawAllowed(accountBalance, amountToWithdraw));
     }
+
+    @Test
+    public void disallow_withdraw_when_account_balance_below_amount_to_withdraw(){
+        Money accountBalance = AMOUNT_50;
+        Money amountToWithdraw = AMOUNT_100;
+        assertThat(isWithdrawAllowed(accountBalance, amountToWithdraw)).isFalse();
+    }
+
 }
