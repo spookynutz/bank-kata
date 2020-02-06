@@ -25,6 +25,10 @@ public class StepDefinitions {
 
     @Given("a client makes a deposit of {int} on {int}\\/{int}\\/{int}")
     public void a_client_makes_a_deposit_of_on(Integer operationAmount, Integer day, Integer month, Integer year) {
+        makeADeposit(operationAmount, day, month, year);
+    }
+
+    private void makeADeposit(Integer operationAmount, Integer day, Integer month, Integer year) {
         systemClock.setTime(year, month, day);
         bankAccount.deposit(BigDecimal.valueOf(operationAmount));
     }
@@ -33,6 +37,11 @@ public class StepDefinitions {
     public void a_withdrawal_of_on(Integer operationAmount, Integer day, Integer month, Integer year) {
         systemClock.setTime(year, month, day);
         bankAccount.withdraw(BigDecimal.valueOf(operationAmount));
+    }
+
+    @Given("a deposit of {int} on {int}\\/{int}\\/{int}")
+    public void a_deposit_of_on(Integer operationAmount, Integer day, Integer month, Integer year) {
+        makeADeposit(operationAmount, day, month, year);
     }
 
     @When("he requests to print his account statement")
