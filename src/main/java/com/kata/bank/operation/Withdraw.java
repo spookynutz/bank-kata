@@ -5,21 +5,21 @@ import java.time.LocalDateTime;
 
 public class Withdraw {
     private String operationType;
-    private BigDecimal amountToWithdraw;
-    private LocalDateTime withdrawDate;
+    private BigDecimal operationAmount;
+    private LocalDateTime operationDate;
 
     public Withdraw(String operationType, BigDecimal operationAmount, LocalDateTime operationDate) {
         this.operationType = operationType;
-        this.amountToWithdraw = operationAmount.setScale(2);
-        this.withdrawDate = operationDate;
+        this.operationAmount = operationAmount.setScale(2);
+        this.operationDate = operationDate;
     }
 
-    public LocalDateTime getWithdrawDate() {
-        return withdrawDate;
+    public LocalDateTime getOperationDate() {
+        return operationDate;
     }
 
-    public BigDecimal getAmountToWithdraw() {
-        return amountToWithdraw;
+    public BigDecimal getOperationAmount() {
+        return operationAmount;
     }
 
     public String getOperationType() {

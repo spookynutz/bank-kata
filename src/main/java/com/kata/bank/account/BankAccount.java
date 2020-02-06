@@ -29,7 +29,7 @@ public class BankAccount {
     }
 
     public void withdraw(BigDecimal amountToWithdraw) {
-        withdrawHistory.add(new Withdraw("WITHDRAW", amountToWithdraw, systemClock.getTime()));
+        withdrawHistory.add(new Withdraw("WITHDRAW", amountToWithdraw.negate(), systemClock.getTime()));
     }
 
     public void printStatement() {
@@ -50,9 +50,9 @@ public class BankAccount {
 
         for (Withdraw withdraw : withdrawHistory) {
             String operationType = withdraw.getOperationType();
-            BigDecimal operationAmount = withdraw.getAmountToWithdraw();
-            LocalDateTime operationDate = withdraw.getWithdrawDate();
-            accountBalance = accountBalance.subtract(operationAmount);
+            BigDecimal operationAmount = withdraw.getOperationAmount();
+            LocalDateTime operationDate = withdraw.getOperationDate();
+            accountBalance = accountBalance.add(operationAmount);
             printStatement(new StatementLine(accountBalance, operationType, operationAmount, operationDate));
         }
     }
@@ -60,6 +60,6 @@ public class BankAccount {
     private void printStatement(StatementLine statementLine) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String fieldSeparator = " | ";
-        statementPrinter.print(statementLine.getOperationType() + fieldSeparator + dtf.format(statementLine.getOperationDate()) + fieldSeparator + statementLine.getOperationAmount() + fieldSeparator + statementLine.getAccountBalance());
+        statementPrinter.print(statementLine.getOperationType() + fieldSeparator + dtf.format(statementLine.getOperationDate()) + fieldSeparator + statementLine.getOperationAmount().abs() + fieldSeparator + statementLine.getAccountBalance());
     }
 }
