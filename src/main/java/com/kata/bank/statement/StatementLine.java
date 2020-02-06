@@ -1,21 +1,20 @@
 package com.kata.bank.statement;
 
+import com.kata.bank.Money;
 import com.kata.bank.operation.Operation;
-import com.kata.bank.operation.OperationType;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class StatementLine {
-    private final BigDecimal accountBalance;
+    private final Money accountBalance;
     private final Operation operation;
 
-    public StatementLine(BigDecimal accountBalance, Operation operation) {
+    public StatementLine(Money accountBalance, Operation operation) {
         this.accountBalance = accountBalance;
         this.operation = operation;
     }
 
-    public BigDecimal getAccountBalance() {
+    public Money getAccountBalance() {
         return accountBalance;
     }
 
@@ -23,7 +22,7 @@ public class StatementLine {
         return operation.getOperationType();
     }
 
-    public BigDecimal getOperationAmount() {
+    public Money getOperationAmount() {
         return operation.getOperationAmount();
     }
 

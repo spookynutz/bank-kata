@@ -1,10 +1,9 @@
 package com.kata.bank.account;
 
+import com.kata.bank.Money;
 import com.kata.bank.operation.OperationHistory;
 import com.kata.bank.operation.OperationType;
 import com.kata.bank.statement.StatementPrinter;
-
-import java.math.BigDecimal;
 
 public class BankAccount {
 
@@ -16,11 +15,11 @@ public class BankAccount {
         this.operationHistory = operationHistory;
     }
 
-    public void deposit(BigDecimal amountToDeposit) {
+    public void deposit(Money amountToDeposit) {
         operationHistory.add(OperationType.DEPOSIT, amountToDeposit);
     }
 
-    public void withdraw(BigDecimal amountToWithdraw) {
+    public void withdraw(Money amountToWithdraw) {
         operationHistory.add(OperationType.WITHDRAW, amountToWithdraw.negate());
     }
 

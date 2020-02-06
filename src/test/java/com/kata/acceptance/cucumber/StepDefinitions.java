@@ -1,6 +1,7 @@
 package com.kata.acceptance.cucumber;
 
 import com.kata.bank.LocalSystemClock;
+import com.kata.bank.Money;
 import com.kata.bank.SystemClock;
 import com.kata.bank.account.BankAccount;
 import com.kata.bank.operation.OperationHistory;
@@ -30,13 +31,13 @@ public class StepDefinitions {
 
     private void makeADeposit(Integer operationAmount, Integer day, Integer month, Integer year) {
         systemClock.setTime(year, month, day);
-        bankAccount.deposit(BigDecimal.valueOf(operationAmount));
+        bankAccount.deposit(new Money(BigDecimal.valueOf(operationAmount)));
     }
 
     @Given("a withdrawal of {int} on {int}\\/{int}\\/{int}")
     public void a_withdrawal_of_on(Integer operationAmount, Integer day, Integer month, Integer year) {
         systemClock.setTime(year, month, day);
-        bankAccount.withdraw(BigDecimal.valueOf(operationAmount));
+        bankAccount.withdraw(new Money(BigDecimal.valueOf(operationAmount)));
     }
 
     @Given("a deposit of {int} on {int}\\/{int}\\/{int}")

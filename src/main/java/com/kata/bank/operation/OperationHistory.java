@@ -1,5 +1,6 @@
 package com.kata.bank.operation;
 
+import com.kata.bank.Money;
 import com.kata.bank.SystemClock;
 import com.kata.bank.statement.Statement;
 import com.kata.bank.statement.StatementLine;
@@ -16,14 +17,14 @@ public class OperationHistory {
         this.systemClock = systemClock;
     }
 
-    public void add(OperationType operationType, BigDecimal amount) {
+    public void add(OperationType operationType, Money amount) {
         this.operationHistory.add(new Operation(operationType, amount, systemClock.getTime()));
     }
 
     public Statement getStatement() {
         List<StatementLine> statementLines = new ArrayList<>();
 
-        BigDecimal accountBalance = BigDecimal.ZERO.setScale(2);
+        Money accountBalance = new Money(BigDecimal.valueOf(0));
 
         for (Operation operation : operationHistory) {
             accountBalance = accountBalance.add(operation.getOperationAmount());

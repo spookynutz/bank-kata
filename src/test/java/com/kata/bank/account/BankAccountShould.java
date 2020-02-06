@@ -1,6 +1,7 @@
 package com.kata.bank.account;
 
 import com.kata.bank.LocalSystemClock;
+import com.kata.bank.Money;
 import com.kata.bank.SystemClock;
 import com.kata.bank.operation.OperationHistory;
 import com.kata.bank.statement.ConsoleStatementPrinter;
@@ -18,12 +19,12 @@ import static org.assertj.core.api.Assertions.*;
 
 public class BankAccountShould {
 
-    public static final BigDecimal AMOUNT_50 = BigDecimal.valueOf(50);
-    public static final BigDecimal AMOUNT_20 = BigDecimal.valueOf(20);
-    public static final BigDecimal AMOUNT_40 = BigDecimal.valueOf(40);
-    public static final BigDecimal AMOUNT_30 = BigDecimal.valueOf(30);
-    private OperationHistory operationHistory;
+    public static final Money AMOUNT_50 = new Money(BigDecimal.valueOf(50));
+    public static final Money AMOUNT_20 = new Money(BigDecimal.valueOf(20));
+    public static final Money AMOUNT_40 = new Money(BigDecimal.valueOf(40));
+    public static final Money AMOUNT_30 = new Money(BigDecimal.valueOf(30));
 
+    private OperationHistory operationHistory;
     private TestableStatementPrinter statementPrinter;
     private BankAccount bankAccount;
     private TestableSystemClock systemClock;
@@ -38,7 +39,7 @@ public class BankAccountShould {
 
     @Test
     public void allow_client_to_make_a_deposit(){
-        BigDecimal amountToDeposit = AMOUNT_20;
+        Money amountToDeposit = AMOUNT_20;
 
         bankAccount.deposit(amountToDeposit);
         bankAccount.printStatement();
@@ -56,7 +57,7 @@ public class BankAccountShould {
 
     @Test
     public void allow_client_to_make_a_deposit_of_another_amount(){
-        BigDecimal amountToDeposit = AMOUNT_50;
+        Money amountToDeposit = AMOUNT_50;
 
         bankAccount.deposit(amountToDeposit);
         bankAccount.printStatement();
@@ -68,8 +69,8 @@ public class BankAccountShould {
 
     @Test
     public void allow_client_to_make_multiple_deposits(){
-        BigDecimal amountToDeposit = AMOUNT_20;
-        BigDecimal anotherAmountToDeposit = AMOUNT_50;
+        Money amountToDeposit = AMOUNT_20;
+        Money anotherAmountToDeposit = AMOUNT_50;
 
         bankAccount.deposit(amountToDeposit);
         bankAccount.deposit(anotherAmountToDeposit);
@@ -83,8 +84,8 @@ public class BankAccountShould {
 
     @Test
     public void be_able_to_display_deposits_made_on_different_dates(){
-        BigDecimal amountToDeposit = AMOUNT_20;
-        BigDecimal anotherAmountToDeposit = AMOUNT_50;
+        Money amountToDeposit = AMOUNT_20;
+        Money anotherAmountToDeposit = AMOUNT_50;
 
         bankAccount.deposit(amountToDeposit);
         systemClock.advanceTimeByOneDay();
@@ -99,8 +100,8 @@ public class BankAccountShould {
 
     @Test
     public void be_able_to_withdraw_money_from_an_account(){
-        BigDecimal amountToDeposit = AMOUNT_50;
-        BigDecimal amountToWithdraw = AMOUNT_20;
+        Money amountToDeposit = AMOUNT_50;
+        Money amountToWithdraw = AMOUNT_20;
 
         bankAccount.deposit(amountToDeposit);
         bankAccount.withdraw(amountToWithdraw);
@@ -114,10 +115,10 @@ public class BankAccountShould {
 
     @Test
     public void be_able_to_mix_multiple_deposits_and_withdrawals_on_an_account(){
-        BigDecimal amountToDeposit = AMOUNT_50;
-        BigDecimal amountToWithdraw = AMOUNT_20;
-        BigDecimal anotherAmountToDeposit = AMOUNT_40;
-        BigDecimal anotherAmountToWithdraw = AMOUNT_30;
+        Money amountToDeposit = AMOUNT_50;
+        Money amountToWithdraw = AMOUNT_20;
+        Money anotherAmountToDeposit = AMOUNT_40;
+        Money anotherAmountToWithdraw = AMOUNT_30;
 
         bankAccount.deposit(amountToDeposit);
         bankAccount.withdraw(amountToWithdraw);

@@ -1,20 +1,21 @@
 package com.kata.bank.operation;
 
-import java.math.BigDecimal;
+import com.kata.bank.Money;
+
 import java.time.LocalDateTime;
 
 public class Operation {
     private OperationType operationType;
-    private BigDecimal operationAmount;
+    private Money operationAmount;
     private LocalDateTime operationDate;
 
-    public Operation(OperationType operationType, BigDecimal operationAmount, LocalDateTime operationDate) {
+    public Operation(OperationType operationType, Money operationAmount, LocalDateTime operationDate) {
         this.operationType = operationType;
-        this.operationAmount = operationAmount.setScale(2);
+        this.operationAmount = operationAmount;
         this.operationDate = operationDate;
     }
 
-    public BigDecimal getOperationAmount() {
+    public Money getOperationAmount() {
         return operationAmount;
     }
 
