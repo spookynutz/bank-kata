@@ -22,7 +22,7 @@ public class Operation {
         return operationDate;
     }
 
-    public OperationType getOperationType() {
-        return operationType;
+    public String getOperationType() {
+        return operationType.name();
     }
 }

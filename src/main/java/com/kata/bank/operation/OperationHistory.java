@@ -21,7 +21,7 @@ public class OperationHistory {
 
         for (Operation operation : operationHistory) {
             accountBalance = accountBalance.add(operation.getOperationAmount());
-            statementLines.add(new StatementLine(accountBalance, operation.getOperationType(), operation.getOperationAmount(), operation.getOperationDate()));
+            statementLines.add(new StatementLine(accountBalance, operation));
         }
 
         return new Statement(statementLines);

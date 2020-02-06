@@ -1,5 +1,6 @@
 package com.kata.bank.statement;
 
+import com.kata.bank.operation.Operation;
 import com.kata.bank.operation.OperationType;
 
 import java.math.BigDecimal;
@@ -7,15 +8,11 @@ import java.time.LocalDateTime;
 
 public class StatementLine {
     private final BigDecimal accountBalance;
-    private final OperationType operationType;
-    private final BigDecimal operationAmount;
-    private final LocalDateTime operationDate;
+    private final Operation operation;
 
-    public StatementLine(BigDecimal accountBalance, OperationType operationType, BigDecimal operationAmount, LocalDateTime operationDate) {
+    public StatementLine(BigDecimal accountBalance, Operation operation) {
         this.accountBalance = accountBalance;
-        this.operationType = operationType;
-        this.operationAmount = operationAmount;
-        this.operationDate = operationDate;
+        this.operation = operation;
     }
 
     public BigDecimal getAccountBalance() {
@@ -23,14 +20,14 @@ public class StatementLine {
     }
 
     public String getOperationType() {
-        return operationType.name();
+        return operation.getOperationType();
     }
 
     public BigDecimal getOperationAmount() {
-        return operationAmount;
+        return operation.getOperationAmount();
     }
 
     public LocalDateTime getOperationDate() {
-        return operationDate;
+        return operation.getOperationDate();
     }
 }
