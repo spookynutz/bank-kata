@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class Deposit {
-    private String operationType;
+    private OperationType operationType;
     private BigDecimal operationAmount;
     private LocalDateTime operationDate;
 
-    public Deposit(String operationType, BigDecimal operationAmount, LocalDateTime operationDate) {
+    public Deposit(OperationType operationType, BigDecimal operationAmount, LocalDateTime operationDate) {
         this.operationType = operationType;
         this.operationAmount = operationAmount.setScale(2);
         this.operationDate = operationDate;
@@ -22,7 +22,7 @@ public class Deposit {
         return operationDate;
     }
 
-    public String getOperationType() {
+    public OperationType getOperationType() {
         return operationType;
     }
 }

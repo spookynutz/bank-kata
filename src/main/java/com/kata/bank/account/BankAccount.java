@@ -2,6 +2,7 @@ package com.kata.bank.account;
 
 import com.kata.bank.SystemClock;
 import com.kata.bank.operation.Deposit;
+import com.kata.bank.operation.OperationType;
 import com.kata.bank.statement.StatementLine;
 import com.kata.bank.statement.StatementPrinter;
 
@@ -23,11 +24,11 @@ public class BankAccount {
     }
 
     public void deposit(BigDecimal amountToDeposit) {
-        depositHistory.add(new Deposit("DEPOSIT", amountToDeposit, systemClock.getTime()));
+        depositHistory.add(new Deposit(OperationType.DEPOSIT, amountToDeposit, systemClock.getTime()));
     }
 
     public void withdraw(BigDecimal amountToWithdraw) {
-        depositHistory.add(new Deposit("WITHDRAW", amountToWithdraw.negate(), systemClock.getTime()));
+        depositHistory.add(new Deposit(OperationType.WITHDRAW, amountToWithdraw.negate(), systemClock.getTime()));
     }
 
     public void printStatement() {
@@ -39,7 +40,7 @@ public class BankAccount {
         BigDecimal accountBalance = BigDecimal.ZERO.setScale(2);
 
         for (Deposit deposit : depositHistory) {
-            String operationType = deposit.getOperationType();
+            OperationType operationType = deposit.getOperationType();
             BigDecimal operationAmount = deposit.getOperationAmount();
             LocalDateTime operationDate = deposit.getOperationDate();
             accountBalance = accountBalance.add(operationAmount);
