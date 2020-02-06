@@ -1,7 +1,7 @@
 package com.kata.bank.account;
 
 import com.kata.bank.SystemClock;
-import com.kata.bank.operation.Deposit;
+import com.kata.bank.operation.Operation;
 import com.kata.bank.operation.OperationType;
 import com.kata.bank.statement.StatementLine;
 import com.kata.bank.statement.StatementPrinter;
@@ -16,7 +16,7 @@ public class BankAccount {
 
     private StatementPrinter statementPrinter;
     private SystemClock systemClock;
-    private List<Deposit> depositHistory = new ArrayList<>();
+    private List<Operation> operationHistory = new ArrayList<>();
 
     public BankAccount(StatementPrinter statementPrinter, SystemClock systemClock) {
         this.statementPrinter = statementPrinter;
@@ -24,25 +24,25 @@ public class BankAccount {
     }
 
     public void deposit(BigDecimal amountToDeposit) {
-        depositHistory.add(new Deposit(OperationType.DEPOSIT, amountToDeposit, systemClock.getTime()));
+        operationHistory.add(new Operation(OperationType.DEPOSIT, amountToDeposit, systemClock.getTime()));
     }
 
     public void withdraw(BigDecimal amountToWithdraw) {
-        depositHistory.add(new Deposit(OperationType.WITHDRAW, amountToWithdraw.negate(), systemClock.getTime()));
+        operationHistory.add(new Operation(OperationType.WITHDRAW, amountToWithdraw.negate(), systemClock.getTime()));
     }
 
     public void printStatement() {
-        if (depositHistory.isEmpty()) {
+        if (operationHistory.isEmpty()) {
             return;
         }
         statementPrinter.print("OPERATION | DATE | AMOUNT | BALANCE");
 
         BigDecimal accountBalance = BigDecimal.ZERO.setScale(2);
 
-        for (Deposit deposit : depositHistory) {
-            OperationType operationType = deposit.getOperationType();
-            BigDecimal operationAmount = deposit.getOperationAmount();
-            LocalDateTime operationDate = deposit.getOperationDate();
+        for (Operation operation : operationHistory) {
+            OperationType operationType = operation.getOperationType();
+            BigDecimal operationAmount = operation.getOperationAmount();
+            LocalDateTime operationDate = operation.getOperationDate();
             accountBalance = accountBalance.add(operationAmount);
             printStatement(new StatementLine(accountBalance, operationType, operationAmount, operationDate));
         }

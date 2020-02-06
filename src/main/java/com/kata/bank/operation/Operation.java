@@ -3,12 +3,12 @@ package com.kata.bank.operation;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class Deposit {
+public class Operation {
     private OperationType operationType;
     private BigDecimal operationAmount;
     private LocalDateTime operationDate;
 
-    public Deposit(OperationType operationType, BigDecimal operationAmount, LocalDateTime operationDate) {
+    public Operation(OperationType operationType, BigDecimal operationAmount, LocalDateTime operationDate) {
         this.operationType = operationType;
         this.operationAmount = operationAmount.setScale(2);
         this.operationDate = operationDate;
