@@ -31,6 +31,10 @@ public class OperationHistory {
             statementLines.add(new StatementLine(accountBalance, operation));
         }
 
-        return new Statement(statementLines);
+        return new Statement(statementLines, accountBalance);
+    }
+
+    public Money getBalance() {
+        return getStatement().getAccountBalance();
     }
 }

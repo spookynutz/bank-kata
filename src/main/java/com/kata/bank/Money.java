@@ -25,4 +25,8 @@ public class Money {
     public String toString() {
         return amount.setScale(2).toString();
     }
+
+    public boolean greaterOrEqualTo(Money other) {
+        return this.amount.compareTo(other.amount) >= 0;
+    }
 }

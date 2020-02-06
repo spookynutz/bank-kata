@@ -3,6 +3,8 @@ package com.kata.bank.account;
 import com.kata.bank.Money;
 import com.kata.bank.operation.OperationHistory;
 import com.kata.bank.operation.OperationType;
+import com.kata.bank.operation.exception.OperationNotAllowedException;
+import com.kata.bank.operation.policy.OperationValidationPolicy;
 import com.kata.bank.statement.StatementPrinter;
 
 public class BankAccount {
@@ -20,6 +22,9 @@ public class BankAccount {
     }
 
     public void withdraw(Money amountToWithdraw) {
+        if (!OperationValidationPolicy.isWithdrawAllowed(operationHistory.getBalance(), amountToWithdraw)){
+            throw new OperationNotAllowedException("Withdraw amount above account balance. Operation rejected");
+        }
         operationHistory.add(OperationType.WITHDRAW, amountToWithdraw.negate());
     }
 
