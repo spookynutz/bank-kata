@@ -34,24 +34,28 @@ public class BankAccount {
         statementPrinter.print("OPERATION | DATE | AMOUNT | BALANCE");
 
         BigDecimal accountBalance = BigDecimal.ZERO.setScale(2);
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String fieldSeparator = " | ";
 
         for (Deposit deposit : depositHistory) {
             String operationType = "DEPOSIT";
-            BigDecimal depositAmount = deposit.getAmountToDeposit();
-            LocalDateTime depositDate = deposit.getDepositDate();
-            accountBalance = accountBalance.add(depositAmount);
-            statementPrinter.print(operationType + fieldSeparator + dtf.format(depositDate) + fieldSeparator + depositAmount + fieldSeparator + accountBalance);
+            BigDecimal operationAmount = deposit.getAmountToDeposit();
+            LocalDateTime operationDate = deposit.getDepositDate();
+            accountBalance = accountBalance.add(operationAmount);
+            printStatement(accountBalance, operationType, operationAmount, operationDate);
         }
 
         for (Withdraw withdraw : withdrawHistory) {
             String operationType = "WITHDRAW";
-            BigDecimal withdrawAmount = withdraw.getAmountToWithdraw();
-            LocalDateTime withdrawDate = withdraw.getWithdrawDate();
-            accountBalance = accountBalance.subtract(withdrawAmount);
-            statementPrinter.print(operationType + fieldSeparator + dtf.format(withdrawDate) + fieldSeparator + withdrawAmount + fieldSeparator + accountBalance);
+            BigDecimal operationAmount = withdraw.getAmountToWithdraw();
+            LocalDateTime operationDate = withdraw.getWithdrawDate();
+            accountBalance = accountBalance.subtract(operationAmount);
+            printStatement(accountBalance, operationType, operationAmount, operationDate);
         }
+    }
+
+    private void printStatement(BigDecimal accountBalance, String operationType, BigDecimal operationAmount, LocalDateTime operationDate) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String fieldSeparator = " | ";
+        statementPrinter.print(operationType + fieldSeparator + dtf.format(operationDate) + fieldSeparator + operationAmount + fieldSeparator + accountBalance);
     }
 
     public void withdraw(BigDecimal amountToWithdraw) {
