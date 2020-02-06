@@ -40,4 +40,8 @@ public class BankAccount {
             statementPrinter.print("DEPOSIT | " + dtf.format(depositDate) + " | " + depositAmount + " | " + accountBalance);
         }
     }
+
+    public void withdraw(BigDecimal amountToWithdraw) {
+
+    }
 }

@@ -91,6 +91,21 @@ public class BankAccountShould {
         );
     }
 
+    @Test
+    public void be_able_to_withdraw_money_from_an_account(){
+        BigDecimal amountToDeposit = AMOUNT_50;
+        BigDecimal amountToWithdraw = AMOUNT_20;
+
+        bankAccount.deposit(amountToDeposit);
+        bankAccount.withdraw(amountToWithdraw);
+        bankAccount.printStatement();
+        assertThat(statementPrinter.printedStatements).containsExactly(
+                "OPERATION | DATE | AMOUNT | BALANCE",
+                "DEPOSIT | 29/01/2020 | 50.00 | 50.00",
+                "WITHDRAW | 29/01/2020 | 20.00 | 30.00"
+        );
+    }
+
     private class TestableStatementPrinter extends ConsoleStatementPrinter {
 
         private List<String> printedStatements = new ArrayList<>();
