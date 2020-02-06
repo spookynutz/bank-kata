@@ -1,5 +1,6 @@
 package com.kata.bank.operation;
 
+import com.kata.bank.statement.Statement;
 import com.kata.bank.statement.StatementLine;
 
 import java.math.BigDecimal;
@@ -13,7 +14,7 @@ public class OperationHistory {
         this.operationHistory.add(operation);
     }
 
-    public List<StatementLine> getStatement() {
+    public Statement getStatement() {
         List<StatementLine> statementLines = new ArrayList<>();
 
         BigDecimal accountBalance = BigDecimal.ZERO.setScale(2);
@@ -23,6 +24,6 @@ public class OperationHistory {
             statementLines.add(new StatementLine(accountBalance, operation.getOperationType(), operation.getOperationAmount(), operation.getOperationDate()));
         }
 
-        return statementLines;
+        return new Statement(statementLines);
     }
 }

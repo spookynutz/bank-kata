@@ -10,14 +10,14 @@ public class ConsoleStatementPrinter implements StatementPrinter {
     private static final String STATEMENT_HEADER = "OPERATION | DATE | AMOUNT | BALANCE";
 
     @Override
-    public void print(List<StatementLine> statementLines) {
-        if (statementLines.isEmpty()) {
+    public void print(Statement statement) {
+        if (statement.isEmpty()) {
             return;
         }
 
         printLine(STATEMENT_HEADER);
 
-        for (StatementLine statementLine : statementLines) {
+        for (StatementLine statementLine : statement.getStatementLines()) {
             printLine(statementLine.getOperationType() +
                     FIELD_SEPARATOR +
                     DATE_TIME_FORMATTER.format(statementLine.getOperationDate()) +

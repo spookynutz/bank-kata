@@ -32,8 +32,8 @@ public class StepDefinitions {
 
     @Given("a withdrawal of {int} on {int}\\/{int}\\/{int}")
     public void a_withdrawal_of_on(Integer operationAmount, Integer day, Integer month, Integer year) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        systemClock.setTime(year, month, day);
+        bankAccount.withdraw(BigDecimal.valueOf(operationAmount));
     }
 
     @When("he requests to print his account statement")
