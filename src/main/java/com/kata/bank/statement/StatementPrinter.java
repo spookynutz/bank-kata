@@ -1,6 +1,7 @@
 package com.kata.bank.statement;
 
+import java.util.List;
+
 public interface StatementPrinter {
-    void printHeader();
-    void print(StatementLine statement);
+    void print(List<StatementLine> statement);
 }

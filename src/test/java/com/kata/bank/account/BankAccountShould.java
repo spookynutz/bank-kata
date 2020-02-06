@@ -2,6 +2,7 @@ package com.kata.bank.account;
 
 import com.kata.bank.LocalSystemClock;
 import com.kata.bank.SystemClock;
+import com.kata.bank.operation.OperationHistory;
 import com.kata.bank.statement.ConsoleStatementPrinter;
 import com.kata.bank.statement.StatementLine;
 import org.junit.Before;
@@ -21,6 +22,7 @@ public class BankAccountShould {
     public static final BigDecimal AMOUNT_20 = BigDecimal.valueOf(20);
     public static final BigDecimal AMOUNT_40 = BigDecimal.valueOf(40);
     public static final BigDecimal AMOUNT_30 = BigDecimal.valueOf(30);
+    private OperationHistory operationHistory;
 
     private TestableStatementPrinter statementPrinter;
     private BankAccount bankAccount;
@@ -30,7 +32,8 @@ public class BankAccountShould {
     public void setUp() throws Exception {
         statementPrinter = new TestableStatementPrinter();
         systemClock = new TestableSystemClock();
-        bankAccount = new BankAccount(statementPrinter, systemClock);
+        operationHistory = new OperationHistory();
+        bankAccount = new BankAccount(statementPrinter, systemClock, operationHistory);
     }
 
     @Test
