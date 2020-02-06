@@ -12,6 +12,10 @@ public class OperationValidationPolicy {
             throw new IllegalArgumentException("Account balance cannot be null");
         }
 
+        if (null == amountToWithdraw) {
+            throw new IllegalArgumentException("Amount to withdraw cannot be null");
+        }
+
         return accountBalance.greaterOrEqualTo(amountToWithdraw);
     }
 }
