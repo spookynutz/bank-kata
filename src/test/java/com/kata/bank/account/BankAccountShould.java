@@ -69,7 +69,23 @@ public class BankAccountShould {
         );
     }
 
-    class TestableStatementPrinter extends ConsoleStatementPrinter {
+    @Test
+    public void be_able_to_display_deposits_made_on_different_dates(){
+        BigDecimal amountToDeposit = AMOUNT_20;
+        BigDecimal anotherAmountToDeposit = AMOUNT_50;
+
+        bankAccount.deposit(amountToDeposit);
+        new Clock().advanceTimeByOneDay();
+        bankAccount.deposit(anotherAmountToDeposit);
+        bankAccount.printStatement();
+        assertThat(statementPrinter.printedStatements).containsExactly(
+                "OPERATION | DATE | AMOUNT | BALANCE",
+                "DEPOSIT | 29/01/2020 | 20.00 | 20.00",
+                "DEPOSIT | 30/01/2020 | 50.00 | 70.00"
+        );
+    }
+
+    private class TestableStatementPrinter extends ConsoleStatementPrinter {
 
         private List<String> printedStatements = new ArrayList<>();
 
@@ -77,6 +93,11 @@ public class BankAccountShould {
         public void print(String statement) {
             super.print(statement);
             printedStatements.add(statement);
+        }
+    }
+
+    private class Clock {
+        public void advanceTimeByOneDay() {
         }
     }
 }
