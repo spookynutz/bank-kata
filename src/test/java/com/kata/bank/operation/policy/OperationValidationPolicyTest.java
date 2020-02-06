@@ -27,4 +27,11 @@ public class OperationValidationPolicyTest {
         Money amountToWithdraw = AMOUNT_50;
         assertThat(isWithdrawAllowed(accountBalance, amountToWithdraw));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void throw_exception_when_amount_to_withdraw_is_null(){
+        Money accountBalance = AMOUNT_100;
+        Money amountToWithdraw = AMOUNT_NULL;
+        assertThat(isWithdrawAllowed(accountBalance, amountToWithdraw));
+    }
 }
