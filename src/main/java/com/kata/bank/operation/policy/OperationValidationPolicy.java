@@ -8,6 +8,10 @@ public class OperationValidationPolicy {
     }
 
     public static boolean isWithdrawAllowed(Money accountBalance, Money amountToWithdraw) {
+        if (null == accountBalance) {
+            throw new IllegalArgumentException("Account balance cannot be null");
+        }
+
         return accountBalance.greaterOrEqualTo(amountToWithdraw);
     }
 }
