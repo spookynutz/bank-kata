@@ -4,19 +4,25 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class Deposit {
-    private BigDecimal amountToDeposit;
-    private LocalDateTime depositDate;
+    private String operationType;
+    private BigDecimal operationAmount;
+    private LocalDateTime operationDate;
 
-    public Deposit(BigDecimal amountToDeposit, LocalDateTime depositDate) {
-        this.amountToDeposit = amountToDeposit.setScale(2);
-        this.depositDate = depositDate;
+    public Deposit(String operationType, BigDecimal operationAmount, LocalDateTime operationDate) {
+        this.operationType = operationType;
+        this.operationAmount = operationAmount.setScale(2);
+        this.operationDate = operationDate;
     }
 
-    public BigDecimal getAmountToDeposit() {
-        return amountToDeposit;
+    public BigDecimal getOperationAmount() {
+        return operationAmount;
     }
 
-    public LocalDateTime getDepositDate() {
-        return depositDate;
+    public LocalDateTime getOperationDate() {
+        return operationDate;
+    }
+
+    public String getOperationType() {
+        return operationType;
     }
 }

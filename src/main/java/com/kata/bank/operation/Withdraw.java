@@ -4,12 +4,14 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class Withdraw {
+    private String operationType;
     private BigDecimal amountToWithdraw;
     private LocalDateTime withdrawDate;
 
-    public Withdraw(BigDecimal amountToWithdraw, LocalDateTime withdrawDate) {
-        this.amountToWithdraw = amountToWithdraw.setScale(2);
-        this.withdrawDate = withdrawDate;
+    public Withdraw(String operationType, BigDecimal operationAmount, LocalDateTime operationDate) {
+        this.operationType = operationType;
+        this.amountToWithdraw = operationAmount.setScale(2);
+        this.withdrawDate = operationDate;
     }
 
     public LocalDateTime getWithdrawDate() {
@@ -18,5 +20,9 @@ public class Withdraw {
 
     public BigDecimal getAmountToWithdraw() {
         return amountToWithdraw;
+    }
+
+    public String getOperationType() {
+        return operationType;
     }
 }

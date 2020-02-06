@@ -25,7 +25,11 @@ public class BankAccount {
     }
 
     public void deposit(BigDecimal amountToDeposit) {
-        depositHistory.add(new Deposit(amountToDeposit, systemClock.getTime()));
+        depositHistory.add(new Deposit("DEPOSIT", amountToDeposit, systemClock.getTime()));
+    }
+
+    public void withdraw(BigDecimal amountToWithdraw) {
+        withdrawHistory.add(new Withdraw("WITHDRAW", amountToWithdraw, systemClock.getTime()));
     }
 
     public void printStatement() {
@@ -37,15 +41,15 @@ public class BankAccount {
         BigDecimal accountBalance = BigDecimal.ZERO.setScale(2);
 
         for (Deposit deposit : depositHistory) {
-            String operationType = "DEPOSIT";
-            BigDecimal operationAmount = deposit.getAmountToDeposit();
-            LocalDateTime operationDate = deposit.getDepositDate();
+            String operationType = deposit.getOperationType();
+            BigDecimal operationAmount = deposit.getOperationAmount();
+            LocalDateTime operationDate = deposit.getOperationDate();
             accountBalance = accountBalance.add(operationAmount);
             printStatement(new StatementLine(accountBalance, operationType, operationAmount, operationDate));
         }
 
         for (Withdraw withdraw : withdrawHistory) {
-            String operationType = "WITHDRAW";
+            String operationType = withdraw.getOperationType();
             BigDecimal operationAmount = withdraw.getAmountToWithdraw();
             LocalDateTime operationDate = withdraw.getWithdrawDate();
             accountBalance = accountBalance.subtract(operationAmount);
@@ -57,9 +61,5 @@ public class BankAccount {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String fieldSeparator = " | ";
         statementPrinter.print(statementLine.getOperationType() + fieldSeparator + dtf.format(statementLine.getOperationDate()) + fieldSeparator + statementLine.getOperationAmount() + fieldSeparator + statementLine.getAccountBalance());
-    }
-
-    public void withdraw(BigDecimal amountToWithdraw) {
-        withdrawHistory.add(new Withdraw(amountToWithdraw, systemClock.getTime()));
     }
 }
