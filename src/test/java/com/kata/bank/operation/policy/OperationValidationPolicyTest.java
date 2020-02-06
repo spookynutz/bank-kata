@@ -13,6 +13,7 @@ public class OperationValidationPolicyTest {
     private static final Money AMOUNT_100 = new Money(BigDecimal.valueOf(100));
     private static final Money AMOUNT_50 = new Money(BigDecimal.valueOf(50));
     private static final Money AMOUNT_NULL = null;
+    private static final Money AMOUNT_NEGATIVE = new Money(BigDecimal.valueOf(-2));
 
     @Test
     public void allow_withdraw_when_account_balance_above_amount_to_withdraw(){
@@ -47,6 +48,13 @@ public class OperationValidationPolicyTest {
         Money accountBalance = AMOUNT_50;
         Money amountToWithdraw = AMOUNT_50;
         assertThat(isWithdrawAllowed(accountBalance, amountToWithdraw)).isTrue();
+    }
+
+    @Test
+    public void disallow_withdraw_when_account_balance_is_negative(){
+        Money accountBalance = AMOUNT_NEGATIVE;
+        Money amountToWithdraw = AMOUNT_100;
+        assertThat(isWithdrawAllowed(accountBalance, amountToWithdraw)).isFalse();
     }
 
 }
