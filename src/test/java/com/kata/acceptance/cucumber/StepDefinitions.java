@@ -28,6 +28,12 @@ public class StepDefinitions {
         bankAccount.deposit(BigDecimal.valueOf(operationAmount));
     }
 
+    @Given("a withdrawal of {int} on {int}\\/{int}\\/{int}")
+    public void a_withdrawal_of_on(Integer operationAmount, Integer day, Integer month, Integer year) {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+
     @When("he requests to print his account statement")
     public void he_requests_to_print_his_account_statement() {
         bankAccount.printStatement();
